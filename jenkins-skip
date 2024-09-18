@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    parameters {
+        booleanParam(name: 'skip_build', defaultValue: false, description: 'skip the build')
+    }
+    stages {
+        stage('Build') {
+            when { expression { params.skip_build != true } }
+            steps {
+                sh '''
+                echo "Building application"
+                '''
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Testing application"
+                sh 'sleep 10'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo "Deploying application"
+                sh 'sleep 10'
+            }
+        }
+    }
+}
